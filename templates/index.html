@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * {
+                font-family: monospace,monospace;
+            }
+            #wrapper { 
+                    position: absolute; 
+                    left: 460px; 
+                    right: 10px; 
+                } 
+        </style>
+        <title>Main page</title>
+    </head>
+    <body>
+        <h1 style="text-align: center;">Welcome to Real Time Chat!</h1>
+        <br><br><br>
+        <div id = "wrapper">
+        <form action = "/submit_name" method = "post">
+            <label for = "username" class = "footer">Choose a name: </label>
+            <input type = "text" name = "username" id = "username" style = "padding: 10px; margin:10px; width:25%;">
+            <div style = "margin-top:10px;" >
+            <button style = "width:100px; height: 39px; font-size:25px; background-color: aquamarine;">→</button>
+            <p style="color:red; font-style: italic;"><b>{{ response }}</b></p>
+        </div>
+        </form>
+        </div>
+    </body>
+</html>

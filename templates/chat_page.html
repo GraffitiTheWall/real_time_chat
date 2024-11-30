@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat-Page.</title>
+        <style>
+            * {
+                font-family: monospace,monospace;
+            }
+            .footer {
+                position: fixed;
+                bottom: 10px;
+                left: 150px;
+                z-index: 0;
+            }
+            .container {
+                padding: 5px;
+                width: 100%;
+                height: 500px;
+                overflow-y: auto;
+                border-style: groove;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "container" id = "container">
+        </div>
+        <form action = '/submit' method = 'post'>
+            <p id = 'comment_label' class = "footer" style="bottom:50px;"><b>{{username}}</b></p>
+            <input type="text" id = 'comment' name = 'comment' class = 'footer'style="width:75%; padding:10px; margin: 5px;">
+            <button class = 'footer' name="submit" id = "submit" style = "left:1270px; margin:5px; width:100px; height: 39px; font-size:25px; background-color: aquamarine;">→</button>
+            <button class = "footer" name = "exit" id = "exit" style = "left:34px; margin:5px; width:100px; height: 39px; font-size:25px; background-color: red;">←</button>
+        </form>
+        <!--<hr>-->
+        <script type = 'text/javascript'> 
+            const newDate = new Date();
+            let label = document.getElementById('comment_label')
+            const date = newDate.toDateString()
+            label.innerHTML = label.innerHTML + ' - ' + date
+            
+            const container = document.getElementById('container')
+
+            fetch('/data').then(response => response.json()).then(data => {
+                let comments = data.comments
+                for (let i = 0; i < comments.length; i++) {
+                    let comment_elem = document.createElement('p')
+                    comment_html = `${comments[i][0]}: ${comments[i][1]}`
+                    comment_elem.innerHTML = comment_html
+                    container.appendChild(comment_elem)
+
+                    let date_elem = document.createElement('p')
+                    date_html = comments[i][2]
+                    date_elem.innerHTML = date_html
+                    date_elem.style.fontStyle = 'italic'
+                    date_elem.style.fontSize = '12px'
+                    container.appendChild(date_elem)
+                    
+                    let br = document.createElement('br')
+                    container.appendChild(br)
+                }
+            })
+        </script>
+    </body>
+</html>
